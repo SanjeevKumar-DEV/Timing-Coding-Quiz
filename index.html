@@ -8,18 +8,34 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Timebased Coding Quiz</title>
 </head>
+
 <body>
     <header>
         <h1>Coding Quiz Challenge</h1>
-        <h2>My First Sample Question</h2>
+        <h2 class="question">My First Sample Question</h2>
     </header>
     <main>
         <div id="instructions">
-        <p>Try to answer the following code-related quetions within the time limit. Keep in mind that incorrect answers will penalize your screentime by ten seconds!</p>
+            <p>Try to answer the following code-related quetions within the time limit. Keep in mind that incorrect
+                answers will penalize your screentime by ten seconds!</p>
         </div>
         <Section class="content">
-            <button>Start Quiz</button>
+            <button id="startButton">Start Quiz</button>
         </Section>
+        <section class="options">
+            <ol>
+                <li id="option1">one</li>
+                <li id="option2">two</li>
+                <li id="option3">three</li>
+                <li id="option4">four</li>
+            </ol>
+        </section class="evaluatedAnswer">
+        <textarea readonly id="yourEvaluatedAnswer" placeholder="Waiting to display correct answer...."
+            aria-label="Your Evaluated Answer">
+            </textarea>
+        <section>
+
+        </section>
     </main>
     <footer>
 
