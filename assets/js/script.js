@@ -7,6 +7,7 @@ var startQuizButton = document.querySelector('#startButton');
 //var yourAnswer = document.querySelector('#yourEvaluatedAnswer');
 var yourAnswerEvent = document.querySelector('.options');
 var yourEvaluatedAnswer = document.querySelector('#yourEvaluatedAnswer');
+var remainingTime = document.querySelector('#remainingTime');
 
 var quiz = [
     {
@@ -95,15 +96,31 @@ function evaluateAndDisplayTheAnswer(currentQuiz, answer) {
     }
 };
 
+var secondsLeft = 50;
+
+function setTime() {
+    var timerInterval = setInterval(function () {
+        if (secondsLeft >= 0) {
+            remainingTime.textContent = secondsLeft + " SECONDS";
+        }
+        if (secondsLeft === 0) {
+            // Stops execution of action at set interval
+            clearInterval(timerInterval);
+        }
+        secondsLeft--;
+    }, 1000);
+}
+
+
 // Add event listener to start plying the quiz
 startQuizButton.addEventListener('click', function (event) {
     event.preventDefault();
-    if(quiz.length !== 0)
-    {
+    if (quiz.length !== 0) {
         quizManager.startTheQuiz = true;
+        setTime();
         quizManager.playTheQuiz();
     }
-    
+
 });
 
 yourAnswerEvent.addEventListener('click', function (event) {

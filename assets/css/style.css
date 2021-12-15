@@ -4,12 +4,37 @@
     line-height: 1.2;
 }
 
-body, header, main {
+header, main, .timeAndScore, .time {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.timeAndScore, .time {
+    width: 100%;
+    flex-direction: row;
+    justify-content:space-between;
+}
+
+.time {
+    justify-content: space-around;
+}
+
+.time, .score{
+    width: 15%;
+    min-width: 250px;
+}
+
+label {
+    text-align: center;
+}
+
+.time textarea {
+    text-align: center;
+    width: 140px;
+    height: 25px;
 }
 
 h1 {
