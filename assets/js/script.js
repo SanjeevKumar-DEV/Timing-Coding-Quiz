@@ -24,7 +24,9 @@ var quiz = [
 
 var quizManager = {
     playerName: "",
-    startTheQuiz: false,
+    quizStarted: false,
+    quizStates: ['Not Started', 'Started', 'Stopped', 'Scoring', 'Stats'],
+    quizCurrentState: 'Not Started',
     currentQuizNumber: 0,
     currentQuizAnswer: "",
     currentEvaluatedAnswer: false,
@@ -65,7 +67,8 @@ var quizManager = {
     },
     exitTheQuiz: function () {
         this.playerName = "";
-        this.startTheQuiz = false;
+        this.quizStarted = false;
+        this.quizCurrentState = quizStates[2];
         this.currentQuizNumber = 0;
         this.currentQuizAnswer = "";
         this.currentEvaluatedAnswer = false;
@@ -116,7 +119,7 @@ function setTime() {
 startQuizButton.addEventListener('click', function (event) {
     event.preventDefault();
     if (quiz.length !== 0) {
-        quizManager.startTheQuiz = true;
+        quizManager.quizCurrentState = quizManager.quizStates[1];
         setTime();
         quizManager.playTheQuiz();
     }
@@ -125,7 +128,7 @@ startQuizButton.addEventListener('click', function (event) {
 
 yourAnswerEvent.addEventListener('click', function (event) {
     event.preventDefault();
-    if (quizManager.currentQuizNumber <= quiz.length && quizManager.startTheQuiz) {
+    if (quizManager.currentQuizNumber <= quiz.length && quizManager.quizCurrentState === quizManager.quizStates[1]) {
         quizManager.recordUserAnswerAndEvaluate(event);
         if (quizManager.currentQuizNumber < quiz.length) {
             quizManager.playTheQuiz();
