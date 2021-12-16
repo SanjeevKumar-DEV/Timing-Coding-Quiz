@@ -11,6 +11,9 @@ var remainingTime = document.querySelector('#remainingTime');
 var startTheQuizH1Tag = document.querySelector('#startTheQuizH1');
 var questionH2Tag = document.querySelector('header .question');
 var quizInstructions = document.querySelector('#instructions');
+var yourScoreKeeper = document.querySelector('#yourScoreKeeper');
+
+
 
 var quiz = [
     {
@@ -22,7 +25,8 @@ var quiz = [
         questionText: "The Condition in an if/else statement is enclosed within ____",
         choice: ["Quotes", "Curly Brackets", "Parenthesis", "Square Brackets"],
         answer: "Parenthesis"
-    },{
+    },
+    {
         questionText: "Arrays in javascript can used to store ____",
         choice: ["Numbers and strings", "Other arrays", "Booleans", "All of the above"],
         answer: "All of the above"
@@ -47,7 +51,8 @@ var quizManager = {
     currentQuizNumber: 0,
     currentQuizAnswer: "",
     currentEvaluatedAnswer: false,
-    totalNumberOfPoints: 0,
+    totalNumberOfCorrectAnswers: 0,
+    totalScore: 0,
     playTheQuiz: function () {
         displayCurrentQuizOptions(this.currentQuizNumber);
     },
@@ -67,7 +72,7 @@ var quizManager = {
     },
     evaluateAndDisplay: function () {
         if (evaluateAndDisplayTheAnswer(quiz[this.currentQuizNumber], this.currentQuizAnswer)) {
-            this.totalNumberOfPoints++;
+            this.totalNumberOfCorrectAnswers++;
             this.currentEvaluatedAnswer = true;
         }
         else {
@@ -80,7 +85,11 @@ var quizManager = {
     reloadTheVariablesForNextQuiz: function () {
         this.currentQuizAnswer = "";
         this.currentEvaluatedAnswer = false;
-        yourEvaluatedAnswer.textContent = "Play the next, your time is ticking.";
+        // yourEvaluatedAnswer.textContent = "Play the next, your time is ticking.";
+    },
+    stopTheQuiz: function () {
+        this.quizCurrentState = this.quizStates[2];
+        //prepareAndDisplayScore();
     },
     exitTheQuiz: function () {
         this.playerName = "";
@@ -89,7 +98,8 @@ var quizManager = {
         this.currentQuizNumber = 0;
         this.currentQuizAnswer = "";
         this.currentEvaluatedAnswer = false;
-        this.totalNumberOfPoints = 0;
+        this.totalNumberOfCorrectAnswers = 0;
+        this.totalScore = 0;
     }
 };
 
@@ -124,6 +134,18 @@ function prepareDisplayForQuiz() {
     startQuizButton.setAttribute('style', 'display : none');
     yourEvaluatedAnswer.setAttribute('style', 'display : block');
     yourAnswer.setAttribute('style', 'display : block');
+    yourEvaluatedAnswer.textContent = "Start your play, time is running.";
+}
+
+function prepareAndDisplayScore() {
+    // create elemement for score display
+    var scoreDisplayLabel = document.createElement('label');
+    scoreDisplayLabel.setAttribute('class', 'scoreDisplay');
+    document.getElementById('yourScoreKeeper').appendChild(scoreDisplayLabel);
+    scoreDisplayLabel.textContent = 'My Score : ' + quizManager.totalScore;
+    document.getElementById('yourScoreKeeper').setAttribute('style', 'display : block');
+    // scoreDisplayLabel.setAttribute('style', 'display : block');
+
 }
 
 var secondsLeft = 50;
@@ -133,8 +155,15 @@ function setTime() {
         if (secondsLeft >= 0) {
             remainingTime.textContent = secondsLeft + " SECONDS";
         }
+        if (quizManager.quizCurrentState === quizManager.quizStates[2]) {
+            quizManager.totalScore = secondsLeft;
+            prepareAndDisplayScore();
+            clearInterval(timerInterval);
+        }
         if (secondsLeft === 0) {
             // Stops execution of action at set interval
+            quizManager.stopTheQuiz();
+            prepareAndDisplayScore();
             clearInterval(timerInterval);
         }
         secondsLeft--;
@@ -150,7 +179,7 @@ startQuizButton.addEventListener('click', function (event) {
     if (quiz.length !== 0) {
         quizManager.quizCurrentState = quizManager.quizStates[1];
         prepareDisplayForQuiz();
-        setTime();        
+        setTime();
         quizManager.playTheQuiz();
     }
 
@@ -165,8 +194,10 @@ yourAnswer.addEventListener('click', function (event) {
             quizManager.reloadTheVariablesForNextQuiz();
 
         }
+        else {
+            quizManager.stopTheQuiz();
+        }
     }
-
 });
 
 //console.log(quiz);

@@ -66,12 +66,19 @@ h2.question {
     height: 150px;
 }
 
-.options {
+.options,  #yourEvaluatedAnswer, #yourScoreKeeper {
     display: none;
 }
 
-#yourEvaluatedAnswer {
+/* #yourEvaluatedAnswer {
     display: none;
 }
+
+#yourScoreKeeper {
+    display: none;
+} */
+
+/* Managing display after quiz is stopped and score display is in progress.*/
+
 
 
