@@ -37,13 +37,13 @@ label {
     height: 25px;
 }
 
+
 h1 {
     font-size: 55px;
     font-weight:55px;
 }
 
 h2 {
-    display: none;
     font-size: 50px;
     font-weight:50px;
 }
@@ -52,9 +52,24 @@ p {
     text-align: center;
 }
 
+/* Managing display for first Screen in CSS to start the quiz */
+
+h2.question {
+    display: none;
+}
+
 #instructions {
     display: block;
     width: 700px;
     height: 150px;
 }
+
+.options {
+    display: none;
+}
+
+#yourEvaluatedAnswer {
+    display: none;
+}
+
 

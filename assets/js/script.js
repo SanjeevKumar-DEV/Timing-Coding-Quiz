@@ -5,9 +5,12 @@ var displayOptions = [
     { display: document.querySelector('#option4') }]
 var startQuizButton = document.querySelector('#startButton');
 //var yourAnswer = document.querySelector('#yourEvaluatedAnswer');
-var yourAnswerEvent = document.querySelector('.options');
+var yourAnswer = document.querySelector('.options');
 var yourEvaluatedAnswer = document.querySelector('#yourEvaluatedAnswer');
 var remainingTime = document.querySelector('#remainingTime');
+var startTheQuizH1Tag = document.querySelector('#startTheQuizH1');
+var questionH2Tag = document.querySelector('header .question');
+var quizInstructions = document.querySelector('#instructions');
 
 var quiz = [
     {
@@ -81,6 +84,7 @@ var statsMamager = {
 
 function displayCurrentQuizOptions(currentQuizNumber) {
     var i;
+    questionH2Tag.textContent = quiz[currentQuizNumber].questionText;
     for (i = 0; i < displayOptions.length; i++) {
         displayOptions[i].display.textContent = quiz[currentQuizNumber].choice[i];
         // console.log(displayOption1.textContent);
@@ -99,6 +103,15 @@ function evaluateAndDisplayTheAnswer(currentQuiz, answer) {
     }
 };
 
+function prepareDisplayForQuiz() {
+    quizInstructions.setAttribute('style', 'display : none');
+    startTheQuizH1Tag.setAttribute('style', 'display : none');
+    questionH2Tag.setAttribute('style', 'display : block');
+    startQuizButton.setAttribute('style', 'display : none');
+    yourEvaluatedAnswer.setAttribute('style', 'display : block');
+    yourAnswer.setAttribute('style', 'display : block');
+}
+
 var secondsLeft = 50;
 
 function setTime() {
@@ -115,18 +128,21 @@ function setTime() {
 }
 
 
+
+
 // Add event listener to start plying the quiz
 startQuizButton.addEventListener('click', function (event) {
     event.preventDefault();
     if (quiz.length !== 0) {
         quizManager.quizCurrentState = quizManager.quizStates[1];
-        setTime();
+        prepareDisplayForQuiz();
+        setTime();        
         quizManager.playTheQuiz();
     }
 
 });
 
-yourAnswerEvent.addEventListener('click', function (event) {
+yourAnswer.addEventListener('click', function (event) {
     event.preventDefault();
     if (quizManager.currentQuizNumber <= quiz.length && quizManager.quizCurrentState === quizManager.quizStates[1]) {
         quizManager.recordUserAnswerAndEvaluate(event);
@@ -138,6 +154,5 @@ yourAnswerEvent.addEventListener('click', function (event) {
     }
 
 });
-
 
 //console.log(quiz);
