@@ -22,6 +22,20 @@ var quiz = [
         questionText: "The Condition in an if/else statement is enclosed within ____",
         choice: ["Quotes", "Curly Brackets", "Parenthesis", "Square Brackets"],
         answer: "Parenthesis"
+    },{
+        questionText: "Arrays in javascript can used to store ____",
+        choice: ["Numbers and strings", "Other arrays", "Booleans", "All of the above"],
+        answer: "All of the above"
+    },
+    {
+        questionText: "String values must be enclosed within ____  when being assigned to variables.",
+        choice: ["Commas", "Curly Brackets", "Quotes", "Parenthesis"],
+        answer: "Quotes"
+    },
+    {
+        questionText: "A very useful tool used during development and debugging for printing content to the debugger is:",
+        choice: ["Javascript", "Terminal / bash", "For Loops", "Console log"],
+        answer: "Console log"
     }
 ]
 
