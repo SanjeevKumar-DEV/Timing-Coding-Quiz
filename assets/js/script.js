@@ -79,12 +79,10 @@ var quizManager = {
         }
         else {
             this.currentEvaluatedAnswer = false;
-            if(secondsLeft - 10 < 0)
-            {
+            if (secondsLeft - 10 < 0) {
                 secondsLeft = 0;
             }
-            else
-            {
+            else {
                 secondsLeft = secondsLeft - 10;
             }
             evaluateAndDisplayTheAnswer('Wrong');
@@ -172,7 +170,7 @@ function setTime() {
             prepareAndDisplayScore();
             clearInterval(timerInterval);
         }
-        if (secondsLeft === 0) {
+        else if (secondsLeft === 0) {
             // Stops execution of action at set interval
             quizManager.stopTheQuiz();
             prepareAndDisplayScore();

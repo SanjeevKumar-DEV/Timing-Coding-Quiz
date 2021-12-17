@@ -59,6 +59,7 @@ h2 {
     max-width: 800px;
     min-width: 300px;
     text-align: left;
+    height: 70px;
 }
 
 p {
@@ -89,6 +90,10 @@ h2.question {
 
 .options,  #yourEvaluatedAnswer, #yourScoreKeeper, #yourCredentials {
     display: none;
+}
+
+.options {
+    height: 135px;
 }
 
 /* #yourEvaluatedAnswer {
