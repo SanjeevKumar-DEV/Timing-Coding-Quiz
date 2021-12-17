@@ -71,12 +71,14 @@ var quizManager = {
 
     },
     evaluateAndDisplay: function () {
-        if (evaluateAndDisplayTheAnswer(quiz[this.currentQuizNumber], this.currentQuizAnswer)) {
+        if (quiz[this.currentQuizNumber].answer === this.currentQuizAnswer) {
             this.totalNumberOfCorrectAnswers++;
             this.currentEvaluatedAnswer = true;
+            evaluateAndDisplayTheAnswer('Correct');
         }
         else {
             this.currentEvaluatedAnswer = false;
+            evaluateAndDisplayTheAnswer('Wrong');
         }
         this.currentQuizNumber++;
         console.log("From Executed : " + quizManager);
@@ -116,15 +118,8 @@ function displayCurrentQuizOptions(currentQuizNumber) {
 
 };
 
-function evaluateAndDisplayTheAnswer(currentQuiz, answer) {
-    if (currentQuiz.answer === answer) {
-        yourEvaluatedAnswer.textContent = "Correct";
-        return true;
-    }
-    else {
-        yourEvaluatedAnswer.textContent = "Wrong";
-        return false;
-    }
+function evaluateAndDisplayTheAnswer(evaluatedAnswer) {
+    yourEvaluatedAnswer.textContent = evaluatedAnswer;
 };
 
 function prepareDisplayForQuiz() {
