@@ -1,3 +1,10 @@
+:root {
+    --outer-space: #33393f;
+    --bright-turquoise: #2aefcb;
+    --gin: #e0eae4;
+    --heliotrope: #e866ec;
+  }
+
 * {
     font-family: 'Courier New', Courier, monospace;
     font-size: 20px;
@@ -95,6 +102,33 @@ h2.question {
 .options {
     height: 135px;
 }
+
+ol {
+    list-style: none; 
+    counter-reset: li
+}
+
+li::before {content: counter(li); color: red;
+    display: inline-block; width: 1em;
+    margin-left: -1em
+}
+
+li {
+    counter-increment: li
+}
+
+.options li {
+    background-color: rgb(94, 2, 94);
+    color: white;
+    border: 3px solid white;
+    width: 300px;
+    border-radius: 4px;
+}
+
+.options li:hover {
+    box-shadow: inset 0px 0px 5px var(--heliotrope), 0 0 15px var(--heliotrope);
+}
+
 section #yourCredentials form, fieldset {
     padding: 0px;
     border: 0px none white;
