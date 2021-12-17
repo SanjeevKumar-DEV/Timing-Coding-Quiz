@@ -12,6 +12,7 @@ var startTheQuizH1Tag = document.querySelector('#startTheQuizH1');
 var questionH2Tag = document.querySelector('header .question');
 var quizInstructions = document.querySelector('#instructions');
 var yourScoreKeeper = document.querySelector('#yourScoreKeeper');
+var separator = document.querySelector('#separator');
 
 
 
@@ -78,6 +79,14 @@ var quizManager = {
         }
         else {
             this.currentEvaluatedAnswer = false;
+            if(secondsLeft - 10 < 0)
+            {
+                secondsLeft = 0;
+            }
+            else
+            {
+                secondsLeft = secondsLeft - 10;
+            }
             evaluateAndDisplayTheAnswer('Wrong');
         }
         this.currentQuizNumber++;
@@ -129,18 +138,26 @@ function prepareDisplayForQuiz() {
     startQuizButton.setAttribute('style', 'display : none');
     yourEvaluatedAnswer.setAttribute('style', 'display : block');
     yourAnswer.setAttribute('style', 'display : block');
-    yourEvaluatedAnswer.textContent = "Start your play, time is running.";
+    yourEvaluatedAnswer.textContent = "Correctness of your answer shown here!!";
+    separator.setAttribute('style', 'display : block');
+    // var startQuizButtonSection = document.querySelector('section .content');
+    // startQuizButtonSection.setAttribute('style', 'display : block');
 }
 
 function prepareAndDisplayScore() {
     // create elemement for score display
+    var scoreHeaderMessageH2Tag = document.querySelector('header .question.scoreMessage');
+    scoreHeaderMessageH2Tag.textContent = "All Done!!"
     var scoreDisplayLabel = document.createElement('label');
     scoreDisplayLabel.setAttribute('class', 'scoreDisplay');
     document.getElementById('yourScoreKeeper').appendChild(scoreDisplayLabel);
-    scoreDisplayLabel.textContent = 'My Score : ' + quizManager.totalScore;
+    scoreDisplayLabel.textContent = 'Your Score : ' + quizManager.totalScore;
     document.getElementById('yourScoreKeeper').setAttribute('style', 'display : block');
+    document.getElementById('yourCredentials').setAttribute('style', 'display : block');
+    document.getElementsByClassName('options')[0].setAttribute('style', 'display : none');
+    // document.getElementsByClassName('options')[0].setAttribute('style', 'display : none');
+    // yourEvaluatedAnswer.setAttribute('style', 'display : none');
     // scoreDisplayLabel.setAttribute('style', 'display : block');
-
 }
 
 var secondsLeft = 50;

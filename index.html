@@ -23,15 +23,24 @@
             </section>
         </section>
         <h1 id="startTheQuizH1">Coding Quiz Challenge</h1>
-        <h2 class="question">My First Sample Question</h2>
+        <h2 class="question scoreMessage">My First Sample Question</h2>
     </header>
     <main>
-        <div id="instructions">
+        <section id="instructions">
             <p>Try to answer the following code-related quetions within the time limit. Keep in mind that incorrect
                 answers will penalize your screentime by ten seconds!</p>
-        </div>
-        <div id="yourScoreKeeper">
-        </div>
+        </section>
+        <section id="yourScoreKeeper">
+        </section>
+        <section id="yourCredentials">
+            <form>
+                <fieldset>
+                    <label for="projectName">Enter Initials: </label>
+                    <input type="text" name="Your Name" id="yourName" value="">
+                    <input type="submit">
+                </fieldset>
+            </form>
+        </section>
         <Section class="content">
             <button id="startButton">Start Quiz</button>
         </Section>
@@ -43,11 +52,12 @@
                 <li id="option4">four</li>
             </ol>
         </section class="evaluatedAnswer">
-        <textarea readonly id="yourEvaluatedAnswer" placeholder="Waiting to display correct answer...."
-            aria-label="Your Evaluated Answer">
-            </textarea>
+        <section id="separator">
+        </section>
         <section>
-
+            <textarea readonly id="yourEvaluatedAnswer" placeholder="Waiting to display correct answer...."
+                aria-label="Your Evaluated Answer">
+            </textarea>
         </section>
     </main>
     <footer>

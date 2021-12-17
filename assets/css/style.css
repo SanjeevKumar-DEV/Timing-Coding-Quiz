@@ -4,7 +4,11 @@
     line-height: 1.2;
 }
 
-header, main, .timeAndScore, .time {
+main section {
+    width: 800px;
+}
+
+header, main, .timeAndScore, .time, main section.content {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -36,7 +40,12 @@ label {
     width: 140px;
     height: 25px;
 }
-
+main section.content button {
+    /* width: 100%; */
+    flex-direction: row;
+    justify-content:space-around;
+    align-items: center;
+}
 
 h1 {
     font-size: 55px;
@@ -46,12 +55,24 @@ h1 {
 h2 {
     font-size: 27px;
     font-weight:20px;
+    width: 800px;
     max-width: 800px;
     min-width: 300px;
+    text-align: left;
 }
 
 p {
     text-align: center;
+}
+
+#separator {
+    /* width: 500px; */
+    display: none;
+    height: 70px;
+    border: 0px;
+    margin: 10px;
+    border-top: 5px solid gray;
+    /* border-bottom: 5px solid gray; */
 }
 
 /* Managing display for first Screen in CSS to start the quiz */
@@ -66,7 +87,7 @@ h2.question {
     height: 150px;
 }
 
-.options,  #yourEvaluatedAnswer, #yourScoreKeeper {
+.options,  #yourEvaluatedAnswer, #yourScoreKeeper, #yourCredentials {
     display: none;
 }
 
