@@ -5,7 +5,7 @@
 }
 
 main section {
-    width: 800px;
+    width: 700px;
 }
 
 header, main, .timeAndScore, .time, main section.content {
@@ -55,8 +55,8 @@ h1 {
 h2 {
     font-size: 27px;
     font-weight:20px;
-    width: 800px;
-    max-width: 800px;
+    width: 700px;
+    max-width: 700px;
     min-width: 300px;
     text-align: left;
     height: 70px;
@@ -69,7 +69,7 @@ p {
 #separator {
     /* width: 500px; */
     display: none;
-    height: 70px;
+    height: 20px;
     border: 0px;
     margin: 10px;
     border-top: 5px solid gray;
@@ -95,12 +95,17 @@ h2.question {
 .options {
     height: 135px;
 }
-
-/* #yourEvaluatedAnswer {
-    display: none;
+section #yourCredentials form, fieldset {
+    padding: 0px;
+    border: 0px none white;
 }
 
-#yourScoreKeeper {
+#yourEvaluatedAnswer {
+    /* display: none; */
+    border: 0px none white;
+}
+
+/*#yourScoreKeeper {
     display: none;
 } */
 
