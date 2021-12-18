@@ -78,7 +78,7 @@ var quizManager = {
         if (quiz[this.currentQuizNumber].answer === this.currentQuizAnswer) {
             this.totalNumberOfCorrectAnswers++;
             this.currentEvaluatedAnswer = true;
-            evaluateAndDisplayTheAnswer('Correct');
+            evaluateAndDisplayTheAnswer('Correct!!');
         }
         else {
             this.currentEvaluatedAnswer = false;
@@ -88,7 +88,7 @@ var quizManager = {
             else {
                 secondsLeft = secondsLeft - 10;
             }
-            evaluateAndDisplayTheAnswer('Wrong');
+            evaluateAndDisplayTheAnswer('Wrong!!');
         }
         this.currentQuizNumber++;
         console.log("From Executed : " + quizManager);
@@ -124,7 +124,7 @@ var statsManager = {
             lastPlayertotalNumberOfWrongAnswers: quiz.length - quizManager.totalNumberOfCorrectAnswers
         };
         stats.push(playerStats);
-        console.log(stats);
+        // console.log(stats);
     } 
 };
 
@@ -172,13 +172,13 @@ function prepareAndDisplayScore() {
     // scoreDisplayLabel.setAttribute('style', 'display : block');
 }
 
-var secondsLeft = 40;
+var secondsLeft = 60;
 secondsLeft = quiz.length * 10;
 
 function setTime() {
     var timerInterval = setInterval(function () {
         if (secondsLeft >= 0) {
-            remainingTime.textContent = secondsLeft + " SECONDS";
+            remainingTime.textContent = secondsLeft;
         }
         if (quizManager.quizCurrentState === quizManager.quizStates[2]) {
             quizManager.totalScore = secondsLeft;

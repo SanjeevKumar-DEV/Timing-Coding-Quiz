@@ -31,13 +31,32 @@ header, main, .timeAndScore, .time, main section.content {
     justify-content:space-between;
 }
 
+.time, .score{
+    width: 15%;
+    min-width: 200px;
+}
+
 .time {
+    min-width: 100px;
+    max-width: 100px;
     justify-content: space-around;
 }
 
-.time, .score{
-    width: 15%;
-    min-width: 250px;
+.score button, .time textarea {
+    border: 0px none;
+    background-color: white;
+}
+
+.score button {
+    /* font-size: 25px; */
+    font-weight: 20px;
+    color: var(--dark-violet);
+}
+
+button:hover, input[type='submit']:hover {
+    color: white;
+    background-color: var(--light-violet);
+    box-shadow: inset 0px 0px 5px var(--dark-violet), 0 0 15px var(--dark-violet);
 }
 
 label {
@@ -46,7 +65,7 @@ label {
 
 .time textarea {
     text-align: center;
-    width: 140px;
+    width: 30px;
     height: 25px;
 }
 main section.content button {
@@ -141,6 +160,10 @@ section #yourCredentials form, fieldset {
     /* display: none; */
     width: 700px;
     border: 0px none white;
+}
+input[id='submitPlayerDetailsForm'], button[id='startButton'] {
+    color: white;
+    background-color: var(--dark-violet);
 }
 
 /*#yourScoreKeeper {
