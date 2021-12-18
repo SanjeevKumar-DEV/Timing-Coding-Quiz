@@ -51,6 +51,7 @@ header, main, .timeAndScore, .time, main section.content {
 button {
     background-color: var(--dark-violet);
     color: white;
+    border-radius: 4px;
 }
 
 .score button {
@@ -172,8 +173,11 @@ input[id='submitPlayerDetailsForm'], button[id='startButton'] {
     background-color: var(--dark-violet);
 }
 
-#statsDisplayAreaAndControls #statsDisplayArea ol {
+#statsDisplayAreaAndControls #statsDisplayArea li {
     background-color: var(--lighter-violet);
+    border: 2px solid white;
+    /* padding: 2px; */
+    border-radius: 4px;
 }
 
 /*#yourScoreKeeper {

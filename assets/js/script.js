@@ -16,6 +16,8 @@ var separator = document.querySelector('#separator');
 var submitPlayerDetailsForm = document.querySelector('#submitPlayerDetailsForm');
 var capturePlayerName = document.querySelector('#yourName');
 var stats = [];
+var goBack = document.querySelector('#goBack');
+var clearHighscores = document.querySelector('#clearHighscores');
 
 var quiz = [
     {
@@ -121,8 +123,15 @@ var statsManager = {
             lastPlayerTotalNumberOfCorrectAnswers: quizManager.totalNumberOfCorrectAnswers,
             lastPlayerTotalNumberOfWrongAnswers: quiz.length - quizManager.totalNumberOfCorrectAnswers
         };
-        stats = JSON.parse(localStorage.getItem('statsInStorage'));
-        console.log(stats);
+        if (JSON.parse(localStorage.getItem('statsInStorage') === null))
+        {
+            stats = [];
+        }
+        else
+        {
+            stats = JSON.parse(localStorage.getItem('statsInStorage'));
+        }
+        // console.log(stats);
         stats.push(playerStats);
         saveScoresInLocalStorage();
     }
@@ -260,5 +269,17 @@ submitPlayerDetailsForm.addEventListener('click', function (event) {
     }
 });
 
+goBack.addEventListener('click', function (event) {
+    event.preventDefault();
+    location.reload();
+});
+
+clearHighscores.addEventListener('click', function (event) {
+    event.preventDefault();
+    localStorage.clear();
+    stats = [];
+    var  statsDisplayArea = document.querySelector('#statsDisplayArea');
+    statsDisplayArea.setAttribute('style', 'display : none');
+});
 
 //console.log(quiz);
