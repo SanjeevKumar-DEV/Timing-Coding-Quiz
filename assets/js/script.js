@@ -17,8 +17,6 @@ var submitPlayerDetailsForm = document.querySelector('#submitPlayerDetailsForm')
 var capturePlayerName = document.querySelector('#yourName');
 var stats = [];
 
-
-
 var quiz = [
     {
         questionText: "Commonly used datatypes DO NOT include:",
@@ -116,16 +114,18 @@ var quizManager = {
 };
 
 var statsManager = {
-    addLastPlayerStats: function() {
+    addLastPlayerStats: function () {
         var playerStats = {
             lastPlayerName: quizManager.playerName,
             lastPlayerTotalScore: quizManager.totalScore,
             lastPlayerTotalNumberOfCorrectAnswers: quizManager.totalNumberOfCorrectAnswers,
-            lastPlayertotalNumberOfWrongAnswers: quiz.length - quizManager.totalNumberOfCorrectAnswers
+            lastPlayerTotalNumberOfWrongAnswers: quiz.length - quizManager.totalNumberOfCorrectAnswers
         };
+        stats = JSON.parse(localStorage.getItem('statsInStorage'));
+        console.log(stats);
         stats.push(playerStats);
-        // console.log(stats);
-    } 
+        saveScoresInLocalStorage();
+    }
 };
 
 function displayCurrentQuizOptions(currentQuizNumber) {
@@ -151,8 +151,6 @@ function prepareDisplayForQuiz() {
     yourAnswer.setAttribute('style', 'display : block');
     yourEvaluatedAnswer.textContent = "Correctness of your answer shown here!!.";
     separator.setAttribute('style', 'display : block');
-    // var startQuizButtonSection = document.querySelector('section .content');
-    // startQuizButtonSection.setAttribute('style', 'display : block');
 }
 
 function prepareAndDisplayScore() {
@@ -167,9 +165,36 @@ function prepareAndDisplayScore() {
     document.getElementById('yourScoreKeeper').setAttribute('style', 'display : block');
     document.getElementById('yourCredentials').setAttribute('style', 'display : block');
     document.getElementsByClassName('options')[0].setAttribute('style', 'display : none');
-    // document.getElementsByClassName('options')[0].setAttribute('style', 'display : none');
-    // yourEvaluatedAnswer.setAttribute('style', 'display : none');
-    // scoreDisplayLabel.setAttribute('style', 'display : block');
+}
+
+function prepareToDisplayForHighScoreStats() {
+    quizManager.quizCurrentState = quizManager.quizStates[4];
+    var scoreHeaderMessageH2Tag = document.querySelector('header .question.scoreMessage');
+    scoreHeaderMessageH2Tag.textContent = "Highscores";
+    document.getElementById('yourScoreKeeper').setAttribute('style', 'display : none');
+    document.getElementById('yourCredentials').setAttribute('style', 'display : none');
+    document.getElementById('separator').setAttribute('style', 'display : none');
+    document.getElementById('yourAnswerEvaluationArea').setAttribute('style', 'display : none');
+    var statsDisplayOrderedList = document.createElement('ol');
+    statsDisplayOrderedList.setAttribute('id', 'statsDisplayOrderedList');
+    for(var i = 0; i < stats.length; i++)
+    {
+        var statsDisplayListItem = document.createElement('li');
+        statsDisplayListItem.setAttribute('class', 'listItems');
+        var name = 'Name : '  + stats[i].lastPlayerName;
+        var totalScore = '| Total Score : ' + stats[i].lastPlayerTotalScore;
+        var correctAnswers = '| Correct : ' + stats[i].lastPlayerTotalNumberOfCorrectAnswers;
+        var wrongAnswers = '| Wrong : ' + stats[i].lastPlayerTotalNumberOfWrongAnswers;
+        statsDisplayListItem.textContent = name + totalScore + correctAnswers + wrongAnswers;
+        statsDisplayOrderedList.appendChild(statsDisplayListItem);
+        var  statsDisplayArea = document.querySelector('#statsDisplayArea');
+        statsDisplayArea.appendChild(statsDisplayOrderedList);
+        document.querySelector('#statsDisplayAreaAndControls').setAttribute('style', 'display : block');
+    }
+}
+
+function saveScoresInLocalStorage () {
+    localStorage.setItem("statsInStorage", JSON.stringify(stats));
 }
 
 var secondsLeft = 60;
@@ -195,9 +220,6 @@ function setTime() {
     }, 1000);
 }
 
-
-
-
 // Add event listener to start plying the quiz
 startQuizButton.addEventListener('click', function (event) {
     event.preventDefault();
@@ -217,7 +239,6 @@ yourAnswer.addEventListener('click', function (event) {
         if (quizManager.currentQuizNumber < quiz.length) {
             quizManager.playTheQuiz();
             quizManager.reloadTheVariablesForNextQuiz();
-
         }
         else {
             quizManager.stopTheQuiz();
@@ -227,10 +248,16 @@ yourAnswer.addEventListener('click', function (event) {
 
 submitPlayerDetailsForm.addEventListener('click', function (event) {
     event.preventDefault();
-    quizManager.quizCurrentState = quizManager.quizStates[4];
-    quizManager.playerName = capturePlayerName.value;
-    // console.log(capturePlayerName.textContent + ' : ' + capturePlayerName.innerHTML + ' : ' + capturePlayerName.value) ;
-    statsManager.addLastPlayerStats();
+    if (capturePlayerName.value.length >= 2) {
+        quizManager.playerName = capturePlayerName.value;
+        statsManager.addLastPlayerStats();
+        prepareToDisplayForHighScoreStats();
+    }
+    else {
+        var nameCriteriaMessage = document.querySelector('#yourEvaluatedAnswer');
+        nameCriteriaMessage.textContent = "Enter your name or initials with atleast two characters";
+        
+    }
 });
 
 
