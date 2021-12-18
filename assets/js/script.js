@@ -13,6 +13,9 @@ var questionH2Tag = document.querySelector('header .question');
 var quizInstructions = document.querySelector('#instructions');
 var yourScoreKeeper = document.querySelector('#yourScoreKeeper');
 var separator = document.querySelector('#separator');
+var submitPlayerDetailsForm = document.querySelector('#submitPlayerDetailsForm');
+var capturePlayerName = document.querySelector('#yourName');
+var stats = [];
 
 
 
@@ -112,7 +115,17 @@ var quizManager = {
     }
 };
 
-var statsMamager = {
+var statsManager = {
+    addLastPlayerStats: function() {
+        var playerStats = {
+            lastPlayerName: quizManager.playerName,
+            lastPlayerTotalScore: quizManager.totalScore,
+            lastPlayerTotalNumberOfCorrectAnswers: quizManager.totalNumberOfCorrectAnswers,
+            lastPlayertotalNumberOfWrongAnswers: quiz.length - quizManager.totalNumberOfCorrectAnswers
+        };
+        stats.push(playerStats);
+        console.log(stats);
+    } 
 };
 
 function displayCurrentQuizOptions(currentQuizNumber) {
@@ -136,7 +149,7 @@ function prepareDisplayForQuiz() {
     startQuizButton.setAttribute('style', 'display : none');
     yourEvaluatedAnswer.setAttribute('style', 'display : block');
     yourAnswer.setAttribute('style', 'display : block');
-    yourEvaluatedAnswer.textContent = "Correctness of your answer shown here!!";
+    yourEvaluatedAnswer.textContent = "Correctness of your answer shown here!!.";
     separator.setAttribute('style', 'display : block');
     // var startQuizButtonSection = document.querySelector('section .content');
     // startQuizButtonSection.setAttribute('style', 'display : block');
@@ -144,6 +157,7 @@ function prepareDisplayForQuiz() {
 
 function prepareAndDisplayScore() {
     // create elemement for score display
+    quizManager.quizCurrentState = quizManager.quizStates[3];
     var scoreHeaderMessageH2Tag = document.querySelector('header .question.scoreMessage');
     scoreHeaderMessageH2Tag.textContent = "All Done!!"
     var scoreDisplayLabel = document.createElement('label');
@@ -158,7 +172,8 @@ function prepareAndDisplayScore() {
     // scoreDisplayLabel.setAttribute('style', 'display : block');
 }
 
-var secondsLeft = 50;
+var secondsLeft = 40;
+secondsLeft = quiz.length * 10;
 
 function setTime() {
     var timerInterval = setInterval(function () {
@@ -209,5 +224,14 @@ yourAnswer.addEventListener('click', function (event) {
         }
     }
 });
+
+submitPlayerDetailsForm.addEventListener('click', function (event) {
+    event.preventDefault();
+    quizManager.quizCurrentState = quizManager.quizStates[4];
+    quizManager.playerName = capturePlayerName.value;
+    // console.log(capturePlayerName.textContent + ' : ' + capturePlayerName.innerHTML + ' : ' + capturePlayerName.value) ;
+    statsManager.addLastPlayerStats();
+});
+
 
 //console.log(quiz);
