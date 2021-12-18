@@ -18,6 +18,7 @@ var capturePlayerName = document.querySelector('#yourName');
 var stats = [];
 var goBack = document.querySelector('#goBack');
 var clearHighscores = document.querySelector('#clearHighscores');
+var viewHighScores = document.querySelector('#viewScores');
 
 var quiz = [
     {
@@ -178,7 +179,9 @@ function prepareAndDisplayScore() {
 
 function prepareToDisplayForHighScoreStats() {
     quizManager.quizCurrentState = quizManager.quizStates[4];
+    document.querySelector('header section.timeAndScore').setAttribute('style', 'display : none');
     var scoreHeaderMessageH2Tag = document.querySelector('header .question.scoreMessage');
+    // scoreHeaderMessageH2Tag.setAttribute('style', 'height : 50px');
     scoreHeaderMessageH2Tag.textContent = "Highscores";
     document.getElementById('yourScoreKeeper').setAttribute('style', 'display : none');
     document.getElementById('yourCredentials').setAttribute('style', 'display : none');
@@ -186,6 +189,7 @@ function prepareToDisplayForHighScoreStats() {
     document.getElementById('yourAnswerEvaluationArea').setAttribute('style', 'display : none');
     var statsDisplayOrderedList = document.createElement('ol');
     statsDisplayOrderedList.setAttribute('id', 'statsDisplayOrderedList');
+    // stats.sort(dynamicSort('lastPlayerTotalScore'));
     for(var i = 0; i < stats.length; i++)
     {
         var statsDisplayListItem = document.createElement('li');
@@ -280,6 +284,41 @@ clearHighscores.addEventListener('click', function (event) {
     stats = [];
     var  statsDisplayArea = document.querySelector('#statsDisplayArea');
     statsDisplayArea.setAttribute('style', 'display : none');
+});
+
+viewHighScores.addEventListener('click', function (event) {
+    event.preventDefault();
+    // prepareToDisplayForHighScoreStats();
+    if(quizManager.quizCurrentState === quizManager.quizStates[4])
+    {
+        //Do Nothing
+    }
+    else if (quizManager.quizCurrentState === quizManager.quizStates[0])
+    {
+        // location.reload();
+        prepareLoadOfHighscore();
+        stats = JSON.parse(localStorage.getItem('statsInStorage'));
+        prepareToDisplayForHighScoreStats();
+    }
+    else
+    {
+        location.reload();
+        prepareLoadOfHighscore();
+        stats = JSON.parse(localStorage.getItem('statsInStorage'));
+        prepareToDisplayForHighScoreStats();
+    }
+    // prepareLoadOfHighscore();
+    // prepareToDisplayForHighScoreStats();
+    function prepareLoadOfHighscore () {
+        document.querySelector('header section.timeAndScore').setAttribute('style', 'display : none');
+        document.querySelector('header h1').setAttribute('style', 'display : none');
+        var scoresHeaderMessage = document.querySelector('header h2');
+        scoresHeaderMessage.setAttribute('style', 'display : block');
+        scoresHeaderMessage.textContent = 'Highscores';
+        document.querySelector('main section#instructions').setAttribute('style', 'display : none');
+        document.querySelector('main section.content').setAttribute('style', 'display : none');
+        document.querySelector('#statsDisplayAreaAndControls').setAttribute('style', 'display : block');
+    };
 });
 
 //console.log(quiz);
