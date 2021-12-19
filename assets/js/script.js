@@ -1,3 +1,4 @@
+// Global variables available for the program 
 var displayOptions = [
     { display: document.querySelector('#option1') },
     { display: document.querySelector('#option2') },
@@ -15,6 +16,8 @@ var yourScoreKeeper = document.querySelector('#yourScoreKeeper');
 var separator = document.querySelector('#separator');
 var submitPlayerDetailsForm = document.querySelector('#submitPlayerDetailsForm');
 var capturePlayerName = document.querySelector('#yourName');
+
+// Setting stats on first load of from the storage
 var stats = [];
 if (JSON.parse(localStorage.getItem('statsInStorage')) === null) {
     localStorage.setItem("statsInStorage", JSON.stringify(stats));
@@ -22,9 +25,13 @@ if (JSON.parse(localStorage.getItem('statsInStorage')) === null) {
 else {
     stats = JSON.parse(localStorage.getItem('statsInStorage'));
 }
+
+// stats and navigation related elements available for control for the program on global level
 var goBack = document.querySelector('#goBack');
 var clearHighscores = document.querySelector('#clearHighscores');
 var viewHighScores = document.querySelector('#viewScores');
+
+// quiz questions set up
 
 var quiz = [
     {
@@ -54,6 +61,8 @@ var quiz = [
     }
 ]
 
+// quiz Manager handling the quiz sessions and the scores
+
 var quizManager = {
     playerName: "",
     quizStarted: false,
@@ -68,16 +77,11 @@ var quizManager = {
         displayCurrentQuizOptions(this.currentQuizNumber);
     },
     recordUserAnswerAndEvaluate: function (event) {
-        // console.log(event);
-        // console.log(event.target);
-        // console.log(event.srcElement.localName);
         if (event.srcElement.localName === 'li') {
             this.currentQuizAnswer = event.target.textContent;
-            // console.log(this.currentQuizAnswer);
             this.evaluateAndDisplay();
         }
         else {
-            console.log("From Not Executed : " + quizManager);
         }
 
     },
@@ -98,17 +102,14 @@ var quizManager = {
             evaluateAndDisplayTheAnswer('Wrong!!');
         }
         this.currentQuizNumber++;
-        console.log("From Executed : " + quizManager);
         return this.currentEvaluatedAnswer;
     },
     reloadTheVariablesForNextQuiz: function () {
         this.currentQuizAnswer = "";
         this.currentEvaluatedAnswer = false;
-        // yourEvaluatedAnswer.textContent = "Play the next, your time is ticking.";
     },
     stopTheQuiz: function () {
         this.quizCurrentState = this.quizStates[2];
-        //prepareAndDisplayScore();
     },
     exitTheQuiz: function () {
         this.playerName = "";
@@ -122,6 +123,7 @@ var quizManager = {
     }
 };
 
+// Stats Manager handling stats of current session and all the past sessions and specially pushing new stats to the tally
 var statsManager = {
     addLastPlayerStats: function () {
         var playerStats = {
@@ -130,33 +132,29 @@ var statsManager = {
             lastPlayerTotalNumberOfCorrectAnswers: quizManager.totalNumberOfCorrectAnswers,
             lastPlayerTotalNumberOfWrongAnswers: quiz.length - quizManager.totalNumberOfCorrectAnswers
         };
-        // if (JSON.parse(localStorage.getItem('statsInStorage') === null)) {
-        //     stats = [];
-        //     console.log('from if : ' + stats);
-        // }
-        // else {
-        //     stats = JSON.parse(localStorage.getItem('statsInStorage'));
-        //     console.log('from else : ' + stats);
-        // }
-        // console.log(stats);
         stats.push(playerStats);
         saveScoresInLocalStorage();
     }
 };
+
+//  Quiz elements to display to screen 
 
 function displayCurrentQuizOptions(currentQuizNumber) {
     var i;
     questionH2Tag.textContent = quiz[currentQuizNumber].questionText;
     for (i = 0; i < displayOptions.length; i++) {
         displayOptions[i].display.textContent = quiz[currentQuizNumber].choice[i];
-        // console.log(displayOption1.textContent);
     }
 
 };
 
+// Display the correcty answer to the screen
+
 function evaluateAndDisplayTheAnswer(evaluatedAnswer) {
     yourEvaluatedAnswer.textContent = evaluatedAnswer;
 };
+
+// Prepare html elements for readiness to display the quiz elements to screen  
 
 function prepareDisplayForQuiz() {
     quizInstructions.setAttribute('style', 'display : none');
@@ -168,6 +166,8 @@ function prepareDisplayForQuiz() {
     yourEvaluatedAnswer.textContent = "Correctness of your answer shown here!!.";
     separator.setAttribute('style', 'display : block');
 }
+
+// Prepare and display current score to player once quiz finishes
 
 function prepareAndDisplayScore() {
     // create elemement for score display
@@ -183,9 +183,10 @@ function prepareAndDisplayScore() {
     document.getElementsByClassName('options')[0].setAttribute('style', 'display : none');
 }
 
+// Display scroes in sorted manner descending of all past plays and current
+
 function prepareToDisplayForHighScoreStats() {
     quizManager.quizCurrentState = quizManager.quizStates[4];
-    //saveScoresInLocalStorage();
     document.querySelector('header section.timeAndScore').setAttribute('style', 'display : none');
     var scoreHeaderMessageH2Tag = document.querySelector('header .question.scoreMessage');
     scoreHeaderMessageH2Tag.setAttribute('style', 'display : block; height: 40px; margin: 0px; margin-top: 80px; font-size : 35px;');
@@ -196,12 +197,10 @@ function prepareToDisplayForHighScoreStats() {
     document.getElementById('yourAnswerEvaluationArea').setAttribute('style', 'display : none');
     var statsDisplayOrderedList = document.createElement('ol');
     statsDisplayOrderedList.setAttribute('id', 'statsDisplayOrderedList');
-    // stats.sort(dynamicSort('lastPlayerTotalScore'));
-
     if (stats !== null)
     {
         stats.sort(function (a, b) {
-            return a.lastPlayerTotalScore - b.lastPlayerTotalScore;
+            return b.lastPlayerTotalScore - a.lastPlayerTotalScore;
         });
         for (var i = 0; i < stats.length; i++) {
             var statsDisplayListItem = document.createElement('li');
@@ -218,11 +217,13 @@ function prepareToDisplayForHighScoreStats() {
         }
     }
 }
+// When quiz finishes stats pushed to local storage 
 
 function saveScoresInLocalStorage() {
-    // var stats = JSON.parse(localStorage.getItem('statsInStorage')
     localStorage.setItem("statsInStorage", JSON.stringify(stats));
 }
+
+// Previous stats are cleared and empty array stats pushed to the local storage. 
 
 function reloadTheStatsAfterClearing () {
     if (JSON.parse(localStorage.getItem('statsInStorage')) === null) {
@@ -234,6 +235,8 @@ function reloadTheStatsAfterClearing () {
     }
 
 }
+
+// Timer keeping check on if quiz can still continue if time left and store the final scores in local variable 
 
 var secondsLeft = 60;
 secondsLeft = quiz.length * 10;
@@ -270,6 +273,7 @@ startQuizButton.addEventListener('click', function (event) {
 
 });
 
+// Add event listener to keep reloading contents for next quiz on when current quiz options are selected 
 yourAnswer.addEventListener('click', function (event) {
     event.preventDefault();
     if (quizManager.currentQuizNumber <= quiz.length && quizManager.quizCurrentState === quizManager.quizStates[1]) {
@@ -283,6 +287,8 @@ yourAnswer.addEventListener('click', function (event) {
         }
     }
 });
+
+// Add current score to quiz tally when user submits their Initals or name when current quiz finished
 
 submitPlayerDetailsForm.addEventListener('click', function (event) {
     event.preventDefault();
@@ -298,11 +304,13 @@ submitPlayerDetailsForm.addEventListener('click', function (event) {
     }
 });
 
+// Reload the quiz to be played again
 goBack.addEventListener('click', function (event) {
     event.preventDefault();
     location.reload();
 });
 
+// Clear the stats from local storage
 clearHighscores.addEventListener('click', function (event) {
     event.preventDefault();
     localStorage.clear();
@@ -312,26 +320,22 @@ clearHighscores.addEventListener('click', function (event) {
     statsDisplayArea.setAttribute('style', 'display : none');
 });
 
+// Display the current stats tally
+
 viewHighScores.addEventListener('click', function (event) {
     event.preventDefault();
-    // prepareToDisplayForHighScoreStats();
     if (quizManager.quizCurrentState === quizManager.quizStates[4]) {
         //Do Nothing
     }
     else if (quizManager.quizCurrentState === quizManager.quizStates[0]) {
-        // location.reload();
         prepareLoadOfHighscore();
-        // stats = JSON.parse(localStorage.getItem('statsInStorage'));
         prepareToDisplayForHighScoreStats();
     }
     else {
         location.reload();
         prepareLoadOfHighscore();
-        // stats = JSON.parse(localStorage.getItem('statsInStorage'));
         prepareToDisplayForHighScoreStats();
     }
-    // prepareLoadOfHighscore();
-    // prepareToDisplayForHighScoreStats();
     function prepareLoadOfHighscore() {
         document.querySelector('header section.timeAndScore').setAttribute('style', 'display : none');
         document.querySelector('header h1').setAttribute('style', 'display : none');
@@ -343,5 +347,3 @@ viewHighScores.addEventListener('click', function (event) {
         document.querySelector('#statsDisplayAreaAndControls').setAttribute('style', 'display : block');
     };
 });
-
-//console.log(quiz);
