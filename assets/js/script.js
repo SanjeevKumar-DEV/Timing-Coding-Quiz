@@ -325,16 +325,12 @@ viewHighScores.addEventListener('click', function (event) {
     event.preventDefault();
     if (quizManager.quizCurrentState === quizManager.quizStates[1] || quizManager.quizCurrentState === quizManager.quizStates[2] || quizManager.quizCurrentState === quizManager.quizStates[3] || quizManager.quizCurrentState === quizManager.quizStates[4]) {
         //Do Nothing
+        window.alert("You are currently in middle of quiz. Please try to access 'View Highscores' once quiz is completed.")
     }
     else if (quizManager.quizCurrentState === quizManager.quizStates[0]) {
         prepareLoadOfHighscore();
         prepareToDisplayForHighScoreStats();
     }
-    // else {
-    //     location.reload();
-    //     prepareLoadOfHighscore();
-    //     prepareToDisplayForHighScoreStats();
-    // }
     function prepareLoadOfHighscore() {
         document.querySelector('header section.timeAndScore').setAttribute('style', 'display : none');
         document.querySelector('header h1').setAttribute('style', 'display : none');
