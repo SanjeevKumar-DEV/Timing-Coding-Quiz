@@ -197,8 +197,7 @@ function prepareToDisplayForHighScoreStats() {
     document.getElementById('yourAnswerEvaluationArea').setAttribute('style', 'display : none');
     var statsDisplayOrderedList = document.createElement('ol');
     statsDisplayOrderedList.setAttribute('id', 'statsDisplayOrderedList');
-    if (stats !== null)
-    {
+    if (stats !== null) {
         stats.sort(function (a, b) {
             return b.lastPlayerTotalScore - a.lastPlayerTotalScore;
         });
@@ -225,7 +224,7 @@ function saveScoresInLocalStorage() {
 
 // Previous stats are cleared and empty array stats pushed to the local storage. 
 
-function reloadTheStatsAfterClearing () {
+function reloadTheStatsAfterClearing() {
     if (JSON.parse(localStorage.getItem('statsInStorage')) === null) {
         stats = [];
         localStorage.setItem("statsInStorage", JSON.stringify(stats));
@@ -324,18 +323,18 @@ clearHighscores.addEventListener('click', function (event) {
 
 viewHighScores.addEventListener('click', function (event) {
     event.preventDefault();
-    if (quizManager.quizCurrentState === quizManager.quizStates[4]) {
+    if (quizManager.quizCurrentState === quizManager.quizStates[1] || quizManager.quizCurrentState === quizManager.quizStates[2] || quizManager.quizCurrentState === quizManager.quizStates[3] || quizManager.quizCurrentState === quizManager.quizStates[4]) {
         //Do Nothing
     }
     else if (quizManager.quizCurrentState === quizManager.quizStates[0]) {
         prepareLoadOfHighscore();
         prepareToDisplayForHighScoreStats();
     }
-    else {
-        location.reload();
-        prepareLoadOfHighscore();
-        prepareToDisplayForHighScoreStats();
-    }
+    // else {
+    //     location.reload();
+    //     prepareLoadOfHighscore();
+    //     prepareToDisplayForHighScoreStats();
+    // }
     function prepareLoadOfHighscore() {
         document.querySelector('header section.timeAndScore').setAttribute('style', 'display : none');
         document.querySelector('header h1').setAttribute('style', 'display : none');
