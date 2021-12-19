@@ -188,7 +188,7 @@ function prepareToDisplayForHighScoreStats() {
     //saveScoresInLocalStorage();
     document.querySelector('header section.timeAndScore').setAttribute('style', 'display : none');
     var scoreHeaderMessageH2Tag = document.querySelector('header .question.scoreMessage');
-    // scoreHeaderMessageH2Tag.setAttribute('style', 'height : 50px');
+    scoreHeaderMessageH2Tag.setAttribute('style', 'display : block; height: 40px; font-size : 35px;');
     scoreHeaderMessageH2Tag.textContent = "Highscores";
     document.getElementById('yourScoreKeeper').setAttribute('style', 'display : none');
     document.getElementById('yourCredentials').setAttribute('style', 'display : none');
