@@ -18,6 +18,7 @@ main section {
     width: 700px;
 }
 
+/* Flex Properties for all common elements required from start */
 header, main, .timeAndScore, .time, main section.content {
     display: flex;
     flex-wrap: wrap;
@@ -76,7 +77,6 @@ label {
     height: 25px;
 }
 main section.content button {
-    /* width: 100%; */
     flex-direction: row;
     justify-content:space-around;
     align-items: center;
@@ -153,6 +153,8 @@ li {
     border-radius: 6px;
 }
 
+/* Hover Properties for option items */
+
 .options li:hover {
     background-color: var(--light-violet);
     box-shadow: inset 0px 0px 5px var(--dark-violet), 0 0 15px var(--dark-violet);
@@ -164,7 +166,6 @@ section #yourCredentials form, fieldset {
 }
 
 #yourEvaluatedAnswer {
-    /* display: none; */
     width: 700px;
     border: 0px none white;
 }
@@ -173,18 +174,14 @@ input[id='submitPlayerDetailsForm'], button[id='startButton'] {
     background-color: var(--dark-violet);
 }
 
+/* Elements added from javascript and most of the properties set there, just some basics set here*/
+
 #statsDisplayAreaAndControls #statsDisplayArea li {
     background-color: var(--lighter-violet);
     border: 2px solid white;
     /* padding: 2px; */
     border-radius: 4px;
 }
-
-/*#yourScoreKeeper {
-    display: none;
-} */
-
-/* Managing display after quiz is stopped and score display is in progress.*/
 
 
 
