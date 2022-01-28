@@ -4,6 +4,8 @@ Web Application URL : https://sanjeevkumar-dev.github.io/Timing-Coding-Quiz/
 
 Git Repository URL : https://github.com/SanjeevKumar-DEV/Timing-Coding-Quiz
 
+Technologies : Javascrip, CSS , HTML
+
 --This application provides timing coding quiz with multiple choice questions 
 --You can view the stats of the quiz at end of the quiz or from top link "View Highscores" if quiz is not in progress.
 --Once quiz finish, you can add your score to the existing tally
@@ -24,3 +26,7 @@ Git Repository URL : https://github.com/SanjeevKumar-DEV/Timing-Coding-Quiz
 Web Application URL : https://sanjeevkumar-dev.github.io/Timing-Coding-Quiz/
 
 Git Repository URL : https://github.com/SanjeevKumar-DEV/Timing-Coding-Quiz
+
+License : MIT
+
+Contact : systemconsultant@live.com.au
